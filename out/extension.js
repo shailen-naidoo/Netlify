@@ -14,11 +14,12 @@ const axios_1 = require("axios");
 const date_fns_1 = require("date-fns");
 exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
     const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
+    const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
     const init = () => __awaiter(void 0, void 0, void 0, function* () {
         statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
         statusBar.color = 'white';
         statusBar.show();
-        const { data: [buildStatus] } = yield axios_1.default.get('https://api.netlify.com/api/v1/sites/hydrogen-cli.netlify.com/deploys');
+        const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
         updateStatusBar({
             state: buildStatus.state,
             branch: buildStatus.branch,
@@ -61,7 +62,7 @@ exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
     };
     init();
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
-        const { data: [buildStatus] } = yield axios_1.default.get('https://api.netlify.com/api/v1/sites/hydrogen-cli.netlify.com/deploys');
+        const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
         updateStatusBar({
             state: buildStatus.state,
             branch: buildStatus.branch,

@@ -5,12 +5,14 @@ import { differenceInSeconds } from 'date-fns';
 export const activate = async (context: vscode.ExtensionContext) => {
   const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
 
+  const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
+
   const init = async () => {
     statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
     statusBar.color = 'white';
     statusBar.show();
 
-    const { data: [buildStatus] } = await axios.get('https://api.netlify.com/api/v1/sites/hydrogen-cli.netlify.com/deploys');
+    const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
 
     updateStatusBar({
       state: buildStatus.state,
@@ -63,7 +65,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
   init();
 
   setInterval(async (): Promise<void> => {
-    const { data: [buildStatus] } = await axios.get('https://api.netlify.com/api/v1/sites/hydrogen-cli.netlify.com/deploys');
+    const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
 
     updateStatusBar({
       state: buildStatus.state,
