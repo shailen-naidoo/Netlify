@@ -13,6 +13,7 @@ const vscode = require("vscode");
 const axios_1 = require("axios");
 const date_fns_1 = require("date-fns");
 exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Netlify Activated');
     const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
     const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
     const init = () => __awaiter(void 0, void 0, void 0, function* () {

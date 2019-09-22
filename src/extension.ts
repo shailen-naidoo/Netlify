@@ -3,6 +3,7 @@ import axios from 'axios';
 import { differenceInSeconds } from 'date-fns';
 
 export const activate = async (context: vscode.ExtensionContext) => {
+  console.log('Netlify Activated');
   const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
 
   const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
@@ -29,13 +30,13 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
       if (deployTime < 30) {
         statusBar.text = `$(check)  Netlify Build Status: Deploy to ${context} was successful!`;
-        statusBar.color = '#99ff99'
+        statusBar.color = '#99ff99';
         statusBar.show();
         return;
       } 
 
       statusBar.text = '$(repo-sync)  Netlify Build Status: Listening for build...';
-      statusBar.color = 'white'
+      statusBar.color = 'white';
       statusBar.show();
       return;
     }
@@ -74,6 +75,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
       publishedAt: buildStatus.published_at,
     });
   }, 10000);
-}
+};
 
 export function deactivate() {}
