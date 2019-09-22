@@ -4,6 +4,9 @@
 	"description": "View your Netlify deploy statuses right from VS Code",
 	"version": "0.0.1",
 	"publisher": "shailen",
+	"repository": {
+		"url": "https://github.com/ShailenNaidoo/Netlify.git"
+	},
 	"engines": {
 		"vscode": "^1.38.0"
 	},
@@ -47,5 +50,6 @@
 	"dependencies": {
 		"axios": "^0.19.0",
 		"date-fns": "^2.2.1"
-	}
+	},
+	"icon": "netlify.png"
 }
