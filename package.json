@@ -3,6 +3,7 @@
 	"displayName": "Netlify",
 	"description": "View your Netlify deploy statuses right from VS Code",
 	"version": "0.0.1",
+	"publisher": "shailen",
 	"engines": {
 		"vscode": "^1.38.0"
 	},
