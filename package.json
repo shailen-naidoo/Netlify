@@ -2,7 +2,7 @@
 	"name": "netlify",
 	"displayName": "Netlify",
 	"description": "View your Netlify deploy statuses right from VS Code",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"publisher": "shailen",
 	"repository": {
 		"url": "https://github.com/ShailenNaidoo/Netlify.git"
