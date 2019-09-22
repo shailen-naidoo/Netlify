@@ -1,27 +1,77 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import axios from 'axios';
+import { differenceInSeconds } from 'date-fns';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export const activate = async (context: vscode.ExtensionContext) => {
+  const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "netlify" is now active!');
+  const init = async () => {
+    statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
+    statusBar.color = 'white';
+    statusBar.show();
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
+    const { data: [buildStatus] } = await axios.get('https://api.netlify.com/api/v1/sites/hydrogen-cli.netlify.com/deploys');
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
-	});
+    updateStatusBar({
+      state: buildStatus.state,
+      branch: buildStatus.branch,
+      context: buildStatus.context,
+      publishedAt: buildStatus.published_at,
+    });
+  }
 
-	context.subscriptions.push(disposable);
+  const updateStatusBar = ({ state, branch, context, publishedAt }: { state: string; branch: string; context: string; publishedAt: string | null }) => {
+
+    if (state === 'ready') {
+      const deployTime = publishedAt ? differenceInSeconds(new Date(), new Date(publishedAt)) : 100;
+
+      if (deployTime < 30) {
+        statusBar.text = `$(check)  Netlify Build Status: Deploy to ${context} was successful!`;
+        statusBar.color = '#99ff99'
+        statusBar.show();
+        return;
+      } 
+
+      statusBar.text = '$(repo-sync)  Netlify Build Status: Listening for build...';
+      statusBar.color = 'white'
+      statusBar.show();
+      return;
+    }
+
+    if (state === 'building') {
+      statusBar.text = `$(repo-sync~spin)  Netlify Build Status: ${branch} is deploying to ${context}...`;
+      statusBar.color = '#99ff99';
+      statusBar.show();
+      return;
+    }
+
+    if (state === 'enqueued') {
+      statusBar.text = `$(clock)  Netlify Build Status: ${branch} is enqueued to deploy to ${context}...`;
+      statusBar.color = ' #99ff99';
+      statusBar.show();
+      return;
+    }
+
+    if (state === 'error') {
+      statusBar.text = `$(issue-opened)  Netlify Build Status: ${branch} failed to deploy to ${context}!`;
+      statusBar.color = 'orange';
+      statusBar.show();
+      return;
+    }
+  }
+
+  init();
+
+  setInterval(async (): Promise<void> => {
+    const { data: [buildStatus] } = await axios.get('https://api.netlify.com/api/v1/sites/hydrogen-cli.netlify.com/deploys');
+
+    updateStatusBar({
+      state: buildStatus.state,
+      branch: buildStatus.branch,
+      context: buildStatus.context,
+      publishedAt: buildStatus.published_at,
+    });
+  }, 10000);
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {}
