@@ -2,6 +2,8 @@
 
 This is an unofficial extension for VS Code, it allows you to observe and display build events for your site
 
+![](https://i.ibb.co/dDTT78R/Screenshot-from-2019-09-23-18-27-29.png)
+
 ## Features
 You can see when your:
 

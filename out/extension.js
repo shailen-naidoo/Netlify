@@ -17,7 +17,6 @@ exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
     const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
     const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
     const personalAccessToken = vscode.workspace.getConfiguration('netlify').get('api_token');
-    console.log(personalAccessToken);
     const init = () => __awaiter(void 0, void 0, void 0, function* () {
         statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
         statusBar.color = 'white';
