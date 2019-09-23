@@ -16,6 +16,7 @@ You can see when your:
   "netlify.site_id": "<site_name|api_id>"
 }
 ```
+> You need to append `.netlify.com` to your site id: **my-project.netlify.com**
 
 The extension needs to find the `netlify.site_id` property in your workspace settings (`.vscode/settings.json`) or global settings in order to activate the extension
 
