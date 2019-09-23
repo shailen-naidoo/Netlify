@@ -10,7 +10,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   const init = async () => {
     statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
-    statusBar.color = 'white';
     statusBar.show();
 
     try {
@@ -48,7 +47,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
       } 
 
       statusBar.text = '$(repo-sync)  Netlify Build Status: Listening for build...';
-      statusBar.color = 'white';
       statusBar.show();
       return;
     }
