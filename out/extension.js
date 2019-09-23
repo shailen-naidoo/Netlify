@@ -20,13 +20,21 @@ exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
         statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
         statusBar.color = 'white';
         statusBar.show();
-        const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
-        updateStatusBar({
-            state: buildStatus.state,
-            branch: buildStatus.branch,
-            context: buildStatus.context,
-            publishedAt: buildStatus.published_at,
-        });
+        try {
+            const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
+            updateStatusBar({
+                state: buildStatus.state,
+                branch: buildStatus.branch,
+                context: buildStatus.context,
+                publishedAt: buildStatus.published_at,
+            });
+        }
+        catch (e) {
+            statusBar.text = '$(issue-opened)  Netlify Build Status: Cannot fetch build status, project unauthorized';
+            statusBar.color = 'orange';
+            statusBar.show();
+            return true;
+        }
     });
     const updateStatusBar = ({ state, branch, context, publishedAt }) => {
         if (state === 'ready') {
@@ -72,10 +80,13 @@ exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }), 10000);
     };
-    const main = () => {
-        init();
+    const main = () => __awaiter(void 0, void 0, void 0, function* () {
+        const res = yield init();
+        if (res) {
+            return;
+        }
         fetchNetlifyBuildStatus();
-    };
+    });
     if (!siteId) {
         return;
     }

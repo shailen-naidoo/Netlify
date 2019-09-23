@@ -5,7 +5,6 @@ import { differenceInSeconds } from 'date-fns';
 export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Netlify Activated');
   const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
-
   const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
 
   const init = async () => {
@@ -13,14 +12,22 @@ export const activate = async (context: vscode.ExtensionContext) => {
     statusBar.color = 'white';
     statusBar.show();
 
-    const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
+    try {
+      const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
 
-    updateStatusBar({
-      state: buildStatus.state,
-      branch: buildStatus.branch,
-      context: buildStatus.context,
-      publishedAt: buildStatus.published_at,
-    });
+      updateStatusBar({
+        state: buildStatus.state,
+        branch: buildStatus.branch,
+        context: buildStatus.context,
+        publishedAt: buildStatus.published_at,
+      });
+    } catch (e) {
+      statusBar.text = '$(issue-opened)  Netlify Build Status: Cannot fetch build status, project unauthorized';
+      statusBar.color = 'orange';
+      statusBar.show();
+
+      return true;
+    }
   };
 
   const updateStatusBar = ({ state, branch, context, publishedAt }: { state: string; branch: string; context: string; publishedAt: string | null }) => {
@@ -76,8 +83,13 @@ export const activate = async (context: vscode.ExtensionContext) => {
     }, 10000);
   };
 
-  const main = () => {
-    init();
+  const main = async () => {
+    const res = await init();
+
+    if (res) {
+      return;
+    }
+
     fetchNetlifyBuildStatus();
   };
 
