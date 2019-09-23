@@ -8,9 +8,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
   const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
   const personalAccessToken = vscode.workspace.getConfiguration('netlify').get('api_token');
 
-  console.log(personalAccessToken);
-
-
   const init = async () => {
     statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
     statusBar.color = 'white';
