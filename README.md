@@ -9,6 +9,14 @@ You can see when your:
 * Site deploy was successful
 * Site deploy has failed
 
-## Requirements
+## Settings
 
-You would need to add your sites id to your settings at `netlify.site_id`
+```json
+{
+  "netlify.site_id": "<site_name|api_id>"
+}
+```
+
+The extension needs to find the `netlify.site_id` property in your workspace settings (`.vscode/settings.json`) or global settings in order to activate the extension
+
+You can find the above details in your project settings under *Site details*
