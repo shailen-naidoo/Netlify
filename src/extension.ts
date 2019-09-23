@@ -40,7 +40,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
     if (state === 'ready') {
       const deployTime = publishedAt ? differenceInSeconds(new Date(), new Date(publishedAt)) : 100;
 
-      if (deployTime < 30) {
+      if (deployTime < 20) {
         statusBar.text = `$(check)  Netlify Build Status: Deploy to ${context} was successful!`;
         statusBar.color = '#99ff99';
         statusBar.show();
