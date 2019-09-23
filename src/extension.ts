@@ -61,20 +61,31 @@ export const activate = async (context: vscode.ExtensionContext) => {
       statusBar.show();
       return;
     }
+  };
+
+  const fetchNetlifyBuildStatus = () => {
+    setInterval(async (): Promise<void> => {
+      const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
+  
+      updateStatusBar({
+        state: buildStatus.state,
+        branch: buildStatus.branch,
+        context: buildStatus.context,
+        publishedAt: buildStatus.published_at,
+      });
+    }, 10000);
+  };
+
+  const main = () => {
+    init();
+    fetchNetlifyBuildStatus();
+  };
+
+  if(!siteId) {
+    return;
   }
 
-  init();
-
-  setInterval(async (): Promise<void> => {
-    const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
-
-    updateStatusBar({
-      state: buildStatus.state,
-      branch: buildStatus.branch,
-      context: buildStatus.context,
-      publishedAt: buildStatus.published_at,
-    });
-  }, 10000);
+  main();
 };
 
 export function deactivate() {}

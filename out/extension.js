@@ -61,16 +61,25 @@ exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
     };
-    init();
-    setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
-        const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
-        updateStatusBar({
-            state: buildStatus.state,
-            branch: buildStatus.branch,
-            context: buildStatus.context,
-            publishedAt: buildStatus.published_at,
-        });
-    }), 10000);
+    const fetchNetlifyBuildStatus = () => {
+        setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
+            const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
+            updateStatusBar({
+                state: buildStatus.state,
+                branch: buildStatus.branch,
+                context: buildStatus.context,
+                publishedAt: buildStatus.published_at,
+            });
+        }), 10000);
+    };
+    const main = () => {
+        init();
+        fetchNetlifyBuildStatus();
+    };
+    if (!siteId) {
+        return;
+    }
+    main();
 });
 function deactivate() { }
 exports.deactivate = deactivate;
