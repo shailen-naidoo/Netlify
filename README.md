@@ -2,6 +2,8 @@
 
 This is an unofficial extension for VS Code, it allows you to observe and display build events for your site
 
+> NB! Only works for public Netlify projects
+
 ## Features
 You can see when your:
 
