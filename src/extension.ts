@@ -2,13 +2,17 @@ import * as vscode from 'vscode';
 import axios from 'axios';
 import { differenceInSeconds } from 'date-fns';
 
+const output = vscode.window.createOutputChannel('Netlify');
+
 export const activate = async (context: vscode.ExtensionContext) => {
-  console.log('Netlify Activated');
+
   const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
-  const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
+  const siteId = vscode.workspace.getConfiguration('netlify').get('site_id') as string;
   const personalAccessToken = vscode.workspace.getConfiguration('netlify').get('api_token');
 
   const init = async () => {
+    output.appendLine(`${siteId}: Fetching deploy status`);
+
     statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
     statusBar.show();
 
@@ -26,6 +30,9 @@ export const activate = async (context: vscode.ExtensionContext) => {
         publishedAt: buildStatus.published_at,
       });
     } catch (e) {
+      output.clear();
+      output.appendLine(`${siteId}: Project not authorized`);
+
       statusBar.text = '$(issue-opened)  Netlify Build Status: Cannot fetch build status, project unauthorized';
       statusBar.color = 'orange';
       statusBar.show();
@@ -44,7 +51,9 @@ export const activate = async (context: vscode.ExtensionContext) => {
         statusBar.color = '#99ff99';
         statusBar.show();
         return;
-      } 
+      }
+
+      output.appendLine(`${siteId}: Listening for build...`);
 
       statusBar.text = '$(repo-sync)  Netlify Build Status: Listening for build...';
       statusBar.show();
@@ -52,6 +61,8 @@ export const activate = async (context: vscode.ExtensionContext) => {
     }
 
     if (state === 'building') {
+      output.appendLine(`${siteId}: ${branch} is deploying to ${context}`);
+
       statusBar.text = `$(repo-sync~spin)  Netlify Build Status: ${branch} is deploying to ${context}...`;
       statusBar.color = '#99ff99';
       statusBar.show();
@@ -59,6 +70,8 @@ export const activate = async (context: vscode.ExtensionContext) => {
     }
 
     if (state === 'enqueued') {
+      output.appendLine(`${siteId}: ${branch} is enqueued to deploy to ${context}`);
+
       statusBar.text = `$(clock)  Netlify Build Status: ${branch} is enqueued to deploy to ${context}...`;
       statusBar.color = ' #99ff99';
       statusBar.show();
@@ -66,6 +79,8 @@ export const activate = async (context: vscode.ExtensionContext) => {
     }
 
     if (state === 'error') {
+      output.appendLine(`${siteId}: Failed to deploy ${branch} to ${context}`);
+
       statusBar.text = `$(issue-opened)  Netlify Build Status: ${branch} failed to deploy to ${context}!`;
       statusBar.color = 'orange';
       statusBar.show();
