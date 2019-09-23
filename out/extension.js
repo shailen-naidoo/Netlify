@@ -16,12 +16,16 @@ exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Netlify Activated');
     const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
     const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
+    const personalAccessToken = vscode.workspace.getConfiguration('netlify').get('api_token');
+    console.log(personalAccessToken);
     const init = () => __awaiter(void 0, void 0, void 0, function* () {
         statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
         statusBar.color = 'white';
         statusBar.show();
         try {
-            const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
+            const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`, {
+                headers: Object.assign({}, personalAccessToken ? { 'Authorization': `Bearer ${personalAccessToken}` } : {})
+            });
             updateStatusBar({
                 state: buildStatus.state,
                 branch: buildStatus.branch,
@@ -71,7 +75,9 @@ exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
     };
     const fetchNetlifyBuildStatus = () => {
         setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
-            const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
+            const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`, {
+                headers: Object.assign({}, personalAccessToken ? { 'Authorization': `Bearer ${personalAccessToken}` } : {})
+            });
             updateStatusBar({
                 state: buildStatus.state,
                 branch: buildStatus.branch,

@@ -6,6 +6,10 @@ export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Netlify Activated');
   const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
   const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
+  const personalAccessToken = vscode.workspace.getConfiguration('netlify').get('api_token');
+
+  console.log(personalAccessToken);
+
 
   const init = async () => {
     statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
@@ -13,7 +17,11 @@ export const activate = async (context: vscode.ExtensionContext) => {
     statusBar.show();
 
     try {
-      const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
+      const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`, {
+        headers: {
+          ...personalAccessToken ? { 'Authorization': `Bearer ${personalAccessToken}` } : {},
+        }
+      });
 
       updateStatusBar({
         state: buildStatus.state,
@@ -72,7 +80,11 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   const fetchNetlifyBuildStatus = () => {
     setInterval(async (): Promise<void> => {
-      const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`);
+      const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`, {
+        headers: {
+          ...personalAccessToken ? { 'Authorization': `Bearer ${personalAccessToken}` } : {},
+        }
+      });
   
       updateStatusBar({
         state: buildStatus.state,
