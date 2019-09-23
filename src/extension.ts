@@ -21,7 +21,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
       context: buildStatus.context,
       publishedAt: buildStatus.published_at,
     });
-  }
+  };
 
   const updateStatusBar = ({ state, branch, context, publishedAt }: { state: string; branch: string; context: string; publishedAt: string | null }) => {
 

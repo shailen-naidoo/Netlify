@@ -5,6 +5,7 @@
 	"version": "0.1.2",
 	"publisher": "shailen",
 	"repository": {
+		"type": "git",
 		"url": "https://github.com/ShailenNaidoo/Netlify.git"
 	},
 	"engines": {
