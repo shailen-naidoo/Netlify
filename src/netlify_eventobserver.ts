@@ -1,12 +1,19 @@
 import * as vscode from 'vscode';
-import { siteId } from './config';
+import { format } from 'date-fns';
+import { siteId, apiToken, setInterval } from './config';
 import { netlifyEvents } from './netlify_eventemitter';
 
 const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
 const output = vscode.window.createOutputChannel('Netlify');
 
+output.appendLine(`Using [site_id]: "${siteId}"`);
+output.appendLine(`Using [api_token]: "${apiToken}"`);
+output.appendLine(`Using [set_interval]: ${setInterval}\n`);
+
+const logOutputMessage = (message: string) => output.appendLine(`${siteId} [${format(new Date(), 'HH:mm:ss')}]: ${message}`);
+
 netlifyEvents.on('startup', () => {
-  output.appendLine(`${siteId}: Fetching deploy status...`);
+  logOutputMessage('Fetching deploy status...');
 
   statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
   statusBar.color = vscode.ThemeColor;
@@ -14,7 +21,7 @@ netlifyEvents.on('startup', () => {
 });
 
 netlifyEvents.on('ready', () => {
-  output.appendLine(`${siteId}: Listening for build...`);
+  logOutputMessage('Listening for build...');
 
   statusBar.text = '$(repo-sync)  Netlify Build Status: Listening for build...';
   statusBar.color = vscode.ThemeColor;
@@ -22,31 +29,33 @@ netlifyEvents.on('ready', () => {
 });
 
 netlifyEvents.on('deploy-successful', ({ context }) => {
+  logOutputMessage(`Deploy to ${context} was successful!`);
+
   statusBar.text = `$(check)  Netlify Build Status: Deploy to ${context} was successful!`;
   statusBar.color = '#99ff99';
   statusBar.show();
 });
 
 netlifyEvents.on('building', ({ branch, context }) => {
-  output.appendLine(`${siteId}: ${branch} is deploying to ${context}`);
+  logOutputMessage(`${branch} is deploying to ${context}`);
 
   statusBar.text = `$(repo-sync~spin)  Netlify Build Status: ${branch} is deploying to ${context}...`;
-  statusBar.color = '#99ff99';
+  statusBar.color = 'yellow';
   statusBar.show();
 });
 
 netlifyEvents.on('enqueued', ({ branch, context }) => {
-  output.appendLine(`${siteId}: ${branch} is enqueued to deploy to ${context}`);
+  logOutputMessage(`${branch} is enqueued to deploy to ${context}`);
 
-  statusBar.text = `$(clock)  Netlify Build Status: ${branch} is enqueued to deploy to ${context}...`;
-  statusBar.color = ' #99ff99';
+  statusBar.text = `$(clock)  Netlify Build Status: ${branch} is waiting to deploy to ${context}...`;
+  statusBar.color = 'orange';
   statusBar.show();
 });
 
 netlifyEvents.on('error', ({ branch, context }) => {
-  output.appendLine(`${siteId}: Failed to deploy ${branch} to ${context}`);
+  logOutputMessage(`Failed to deploy ${branch} to ${context}`);
 
   statusBar.text = `$(issue-opened)  Netlify Build Status: ${branch} failed to deploy to ${context}!`;
-  statusBar.color = 'orange';
+  statusBar.color = 'red';
   statusBar.show();
 });

@@ -31,6 +31,11 @@
 					"default": null,
 					"scope": "application",
 					"description": "This is your personal access token, this will allow the extension to get access to private site info"
+				},
+				"netlify.set_interval": {
+					"type": "integer",
+					"default": 10000,
+					"description": "You can set the interval at which the extension will poll the Netlify API"
 				}
 			}
 		}

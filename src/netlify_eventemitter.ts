@@ -5,6 +5,7 @@ import { differenceInSeconds } from 'date-fns';
 interface Context {
   siteId: string;
   apiToken: string;
+  setInterval: number;
 }
 
 const netlifyEvents = new EventEmitter();
@@ -20,10 +21,12 @@ const getNetlifyBuildStatus = async (ctx: Context) => {
 const start = async (ctx: Context) => {
   netlifyEvents.emit('startup');
 
-  await getNetlifyBuildStatus(ctx).then(({ state }) => netlifyEvents.emit(state));
+  await getNetlifyBuildStatus(ctx).then((buildStatus) => netlifyEvents.emit(buildStatus.state, buildStatus));
 
   setInterval(async () => {
     const buildStatus = await getNetlifyBuildStatus(ctx);
+
+    console.log(buildStatus.state);
 
     if (buildStatus.state === 'ready') {
       const deployTime = buildStatus.published_at ? differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
@@ -43,8 +46,12 @@ const start = async (ctx: Context) => {
     if (buildStatus.state === 'enqueued') {
       netlifyEvents.emit('enqueued', buildStatus);
     }
+
+    if (buildStatus.state === 'error') {
+      netlifyEvents.emit('error', buildStatus);
+    }
   
-  }, 15000);
+  }, ctx.setInterval);
 };
 
 export {

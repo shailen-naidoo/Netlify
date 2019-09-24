@@ -22,9 +22,10 @@ const getNetlifyBuildStatus = (ctx) => __awaiter(void 0, void 0, void 0, functio
 });
 const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     netlifyEvents.emit('startup');
-    yield getNetlifyBuildStatus(ctx).then(({ state }) => netlifyEvents.emit(state));
+    yield getNetlifyBuildStatus(ctx).then((buildStatus) => netlifyEvents.emit(buildStatus.state, buildStatus));
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
         const buildStatus = yield getNetlifyBuildStatus(ctx);
+        console.log(buildStatus.state);
         if (buildStatus.state === 'ready') {
             const deployTime = buildStatus.published_at ? date_fns_1.differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
             if (deployTime < 20) {
@@ -39,7 +40,10 @@ const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (buildStatus.state === 'enqueued') {
             netlifyEvents.emit('enqueued', buildStatus);
         }
-    }), 15000);
+        if (buildStatus.state === 'error') {
+            netlifyEvents.emit('error', buildStatus);
+        }
+    }), ctx.setInterval);
 });
 exports.start = start;
 //# sourceMappingURL=netlify_eventemitter.js.map
