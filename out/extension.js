@@ -12,11 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 const axios_1 = require("axios");
 const date_fns_1 = require("date-fns");
+const netlify_build_status_1 = require("./netlify_build_status");
+const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
+const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
+const personalAccessToken = vscode.workspace.getConfiguration('netlify').get('api_token');
+const netlifyEvents = netlify_build_status_1.default({
+    siteId,
+    personalAccessToken,
+});
 const output = vscode.window.createOutputChannel('Netlify');
 exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
-    const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
-    const siteId = vscode.workspace.getConfiguration('netlify').get('site_id');
-    const personalAccessToken = vscode.workspace.getConfiguration('netlify').get('api_token');
     const init = () => __awaiter(void 0, void 0, void 0, function* () {
         output.appendLine(`${siteId}: Fetching deploy status`);
         statusBar.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
@@ -79,31 +84,36 @@ exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
     };
-    const fetchNetlifyBuildStatus = () => {
-        setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
-            const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`, {
-                headers: Object.assign({}, personalAccessToken ? { 'Authorization': `Bearer ${personalAccessToken}` } : {})
-            });
-            updateStatusBar({
-                state: buildStatus.state,
-                branch: buildStatus.branch,
-                context: buildStatus.context,
-                publishedAt: buildStatus.published_at,
-            });
-        }), 10000);
-    };
+    // const fetchNetlifyBuildStatus = () => {
+    //   setInterval(async (): Promise<void> => {
+    //     const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${siteId}/deploys`, {
+    //       headers: {
+    //         ...personalAccessToken ? { 'Authorization': `Bearer ${personalAccessToken}` } : {},
+    //       }
+    //     });
+    //     updateStatusBar({
+    //       state: buildStatus.state,
+    //       branch: buildStatus.branch,
+    //       context: buildStatus.context,
+    //       publishedAt: buildStatus.published_at,
+    //     });
+    //   }, 10000);
+    // };
     const main = () => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield init();
         if (res) {
             return;
         }
-        fetchNetlifyBuildStatus();
+        // fetchNetlifyBuildStatus();
     });
     if (!siteId) {
         return;
     }
-    main();
+    // main();
 });
 function deactivate() { }
 exports.deactivate = deactivate;
+netlifyEvents.on('ready', (buildStatus) => {
+    console.log(buildStatus);
+});
 //# sourceMappingURL=extension.js.map
