@@ -4,14 +4,14 @@ import { differenceInSeconds } from 'date-fns';
 
 interface Context {
   siteId: string;
-  personalAccessToken: string;
+  apiToken: string;
 }
 
 const netlifyEvents = new EventEmitter();
 
 const getNetlifyBuildStatus = async (ctx: Context) => {
   const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${ctx.siteId}/deploys`, {
-    headers: ctx.personalAccessToken ? { 'Authorization': `Bearer ${ctx.personalAccessToken}` } : {}
+    headers: ctx.apiToken ? { 'Authorization': `Bearer ${ctx.apiToken}` } : {}
   });
 
   return buildStatus;
@@ -47,7 +47,7 @@ const start = async (ctx: Context) => {
   }, 15000);
 };
 
-export default {
+export {
   netlifyEvents,
   start,
 };

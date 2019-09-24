@@ -13,9 +13,10 @@ const axios_1 = require("axios");
 const EventEmitter = require("events");
 const date_fns_1 = require("date-fns");
 const netlifyEvents = new EventEmitter();
+exports.netlifyEvents = netlifyEvents;
 const getNetlifyBuildStatus = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${ctx.siteId}/deploys`, {
-        headers: ctx.personalAccessToken ? { 'Authorization': `Bearer ${ctx.personalAccessToken}` } : {}
+        headers: ctx.apiToken ? { 'Authorization': `Bearer ${ctx.apiToken}` } : {}
     });
     return buildStatus;
 });
@@ -40,8 +41,5 @@ const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }), 15000);
 });
-exports.default = {
-    netlifyEvents,
-    start,
-};
+exports.start = start;
 //# sourceMappingURL=netlify_eventemitter.js.map
