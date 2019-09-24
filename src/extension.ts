@@ -4,6 +4,10 @@ import * as Netlify from './netlify_eventemitter';
 import './netlify_eventobserver';
 
 export const activate = async (context: vscode.ExtensionContext) => {
+  if (!config.siteId) {
+    return;
+  }
+
   await Netlify.start(config);
 };
 

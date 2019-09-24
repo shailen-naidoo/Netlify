@@ -13,6 +13,9 @@ const config = require("./config");
 const Netlify = require("./netlify_eventemitter");
 require("./netlify_eventobserver");
 exports.activate = (context) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!config.siteId) {
+        return;
+    }
     yield Netlify.start(config);
 });
 function deactivate() { }
