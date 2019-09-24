@@ -19,12 +19,13 @@ const getNetlifyBuildStatus = (ctx) => __awaiter(void 0, void 0, void 0, functio
     });
     return buildStatus;
 });
-exports.default = (ctx) => {
-    getNetlifyBuildStatus(ctx).then(({ state }) => netlifyEvents.emit(state));
+const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    netlifyEvents.emit('startup');
+    yield getNetlifyBuildStatus(ctx).then(({ state }) => netlifyEvents.emit(state));
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
         const buildStatus = yield getNetlifyBuildStatus(ctx);
         if (buildStatus.state === 'ready') {
-            const deployTime = buildStatus.publishedAt ? date_fns_1.differenceInSeconds(new Date(), new Date(buildStatus.publishedAt)) : 100;
+            const deployTime = buildStatus.published_at ? date_fns_1.differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
             if (deployTime < 20) {
                 netlifyEvents.emit('deploy-successful', buildStatus);
                 return;
@@ -37,7 +38,10 @@ exports.default = (ctx) => {
         if (buildStatus.state === 'enqueued') {
             netlifyEvents.emit('enqueued', buildStatus);
         }
-    }), 10000);
-    return netlifyEvents;
+    }), 15000);
+});
+exports.default = {
+    netlifyEvents,
+    start,
 };
-//# sourceMappingURL=netlify_build_status.js.map
+//# sourceMappingURL=netlify_eventemitter.js.map

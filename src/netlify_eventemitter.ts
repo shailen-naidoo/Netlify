@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as EventEmitter from 'events';
+import { differenceInSeconds } from 'date-fns';
 
 interface Context {
   siteId: string;
@@ -16,11 +17,22 @@ const getNetlifyBuildStatus = async (ctx: Context) => {
   return buildStatus;
 };
 
-export default (ctx: Context) => {
+const start = async (ctx: Context) => {
+  netlifyEvents.emit('startup');
+
+  await getNetlifyBuildStatus(ctx).then(({ state }) => netlifyEvents.emit(state));
+
   setInterval(async () => {
     const buildStatus = await getNetlifyBuildStatus(ctx);
-  
+
     if (buildStatus.state === 'ready') {
+      const deployTime = buildStatus.published_at ? differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
+
+      if (deployTime < 20) {
+        netlifyEvents.emit('deploy-successful', buildStatus);
+        return;
+      }
+
       netlifyEvents.emit('ready', buildStatus);
     }
   
@@ -32,7 +44,10 @@ export default (ctx: Context) => {
       netlifyEvents.emit('enqueued', buildStatus);
     }
   
-  }, 10000);
+  }, 15000);
+};
 
-  return netlifyEvents;
+export default {
+  netlifyEvents,
+  start,
 };
