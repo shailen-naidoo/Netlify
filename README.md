@@ -9,25 +9,21 @@ You can see when your:
 
 * Site is being deployed
 * Site deploy was successful
+* Site is waiting to be built
 * Site deploy has failed
 
 ## Settings
 
 ```json
 {
-  "netlify.site_id": "<site_name|api_id>"
-}
-```
-> You need to append `.netlify.com` to your site id: **my-project.netlify.com**
-
-The extension needs to find the `netlify.site_id` property in your workspace settings (`.vscode/settings.json`) or global settings in order to activate the extension
-
-You can find the above details in your project settings under __Site details__
-
-If you want to observe the build status of private Netlify projects, you would need to add a [**Personal Access Token**](https://app.netlify.com/user/settings) to the global settings 
-
-```json
-{
+  "netlify.site_id": "<site_name|api_id>",
   "netlify.api_token": "<personal_access_token>"
+  "netlify.set_interval: "<number>"
 }
 ```
+
+* **`netlify.site_id`**: The name of your site or api id can be used, you can find these details under **Site detail**. If you site name is `my-site` then you need to append `.netlify.com` so it will be `my-site.netlify.com`
+
+* **`netlify.api_token`**: The `api_token` is your *Personal Access Token* which can be found in *User Settings*, this will be used to authenticate private Netlify projects
+
+* **`netlify.set_interval`**: The default is 10000ms but you can set whatever polling interval you would like.
