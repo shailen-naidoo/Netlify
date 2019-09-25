@@ -17,7 +17,7 @@ You can see when your:
 ```json
 {
   "netlify.site_id": "<site_name|api_id>",
-  "netlify.api_token": "<personal_access_token>"
+  "netlify.api_token": "<personal_access_token>",
   "netlify.set_interval": "<number>"
 }
 ```
