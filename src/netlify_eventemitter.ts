@@ -26,8 +26,6 @@ const start = async (ctx: Context) => {
   setInterval(async () => {
     const buildStatus = await getNetlifyBuildStatus(ctx);
 
-    console.log(buildStatus.state);
-
     if (buildStatus.state === 'ready') {
       const deployTime = buildStatus.published_at ? differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
 

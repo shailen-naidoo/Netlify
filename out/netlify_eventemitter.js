@@ -25,7 +25,6 @@ const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     yield getNetlifyBuildStatus(ctx).then((buildStatus) => netlifyEvents.emit(buildStatus.state, buildStatus));
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
         const buildStatus = yield getNetlifyBuildStatus(ctx);
-        console.log(buildStatus.state);
         if (buildStatus.state === 'ready') {
             const deployTime = buildStatus.published_at ? date_fns_1.differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
             if (deployTime < 20) {
