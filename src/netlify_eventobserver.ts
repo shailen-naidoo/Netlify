@@ -6,9 +6,14 @@ import { netlifyEvents } from './netlify_eventemitter';
 const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
 const output = vscode.window.createOutputChannel('Netlify');
 
-output.appendLine(`Using [site_id]: "${siteId}"`);
+output.appendLine('Getting extension config from VS Code...\n');
+output.appendLine(`Using [site_id]: ${siteId ? `"${siteId}"` : 'undefined'}`);
 output.appendLine(`Using [api_token]: "${apiToken}"`);
 output.appendLine(`Using [set_interval]: ${setInterval}\n`);
+
+if (!siteId) {
+  output.appendLine(`Note: [site_id] is not located. No longer polling Netlify API 😿`);
+}
 
 const logOutputMessage = (message: string) => output.appendLine(`${siteId} [${format(new Date(), 'HH:mm:ss')}]: ${message}`);
 

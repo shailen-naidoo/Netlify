@@ -6,9 +6,13 @@ const config_1 = require("./config");
 const netlify_eventemitter_1 = require("./netlify_eventemitter");
 const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
 const output = vscode.window.createOutputChannel('Netlify');
-output.appendLine(`Using [site_id]: "${config_1.siteId}"`);
+output.appendLine('Getting extension config from VS Code...\n');
+output.appendLine(`Using [site_id]: ${config_1.siteId ? `"${config_1.siteId}"` : 'undefined'}`);
 output.appendLine(`Using [api_token]: "${config_1.apiToken}"`);
 output.appendLine(`Using [set_interval]: ${config_1.setInterval}\n`);
+if (!config_1.siteId) {
+    output.appendLine(`Note: [site_id] is not located. No longer polling Netlify API 😿`);
+}
 const logOutputMessage = (message) => output.appendLine(`${config_1.siteId} [${date_fns_1.format(new Date(), 'HH:mm:ss')}]: ${message}`);
 netlify_eventemitter_1.netlifyEvents.on('startup', () => {
     logOutputMessage('Fetching deploy status...');
