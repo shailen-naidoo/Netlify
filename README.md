@@ -1,4 +1,4 @@
-# <img src="https://www.netlify.com/img/press/logos/logomark.png" style="width: 1em"> Netlify
+# Netlify
 
 This is an unofficial extension for VS Code, it allows you to observe and display build events for your site
 
