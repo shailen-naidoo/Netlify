@@ -1,4 +1,4 @@
-# Netlify
+# <img src="https://www.netlify.com/img/press/logos/logomark.png" style="width: 1em"> Netlify
 
 This is an unofficial extension for VS Code, it allows you to observe and display build events for your site
 
@@ -7,10 +7,10 @@ This is an unofficial extension for VS Code, it allows you to observe and displa
 ## Features
 You can see when your:
 
-* Site is being deployed
-* Site deploy was successful
-* Site is waiting to be built
-* Site deploy has failed
+* Site is being deployed 🔄
+* Site deploy was successful ✅
+* Site is waiting to be built ⏳
+* Site deploy has failed 🚫
 
 ## Settings
 
