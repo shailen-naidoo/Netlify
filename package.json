@@ -2,7 +2,7 @@
 	"name": "netlify",
 	"displayName": "Netlify",
 	"description": "View your Netlify deploy statuses right from VS Code",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"publisher": "shailen",
 	"repository": {
 		"type": "git",
@@ -40,17 +40,17 @@
 			}
 		},
 		"commands": [
-      {
-        "command": "netlify.viewLatestDeploy",
-        "title": "View latest deploy",
-        "category": "Netlify"
+			{
+				"command": "netlify.viewLatestDeploy",
+				"title": "View latest deploy",
+				"category": "Netlify"
 			},
 			{
 				"command": "netlify.viewProductionSite",
 				"title": "View production site",
 				"category": "Netlify"
 			}
-    ]
+		]
 	},
 	"main": "./out/extension.js",
 	"scripts": {
