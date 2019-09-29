@@ -12,6 +12,11 @@ You can see when your:
 * Site is waiting to be built ⏳
 * Site deploy has failed 🚫
 
+Commands to view your deploys:
+
+* `Netlify: View latest deploy`
+* `Netlify: View production site`
+
 ## Settings
 
 ```json
