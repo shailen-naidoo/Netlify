@@ -38,7 +38,19 @@
 					"description": "You can set the interval at which the extension will poll the Netlify API"
 				}
 			}
-		}
+		},
+		"commands": [
+      {
+        "command": "netlify.viewLatestDeploy",
+        "title": "View latest deploy",
+        "category": "Netlify"
+			},
+			{
+				"command": "netlify.viewProductionSite",
+				"title": "View production site",
+				"category": "Netlify"
+			}
+    ]
 	},
 	"main": "./out/extension.js",
 	"scripts": {
