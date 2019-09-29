@@ -7,7 +7,7 @@
   - `View latest deploy`
   - `View production site`
 
-### 0.3.0 | 2019-09-29
+### 0.3.1 | 2019-09-29
 
 * `View latest deploy` now goes to current deploy of your branch
 * If no deploy is available for your current branch it will say `No deploy for current branch`
