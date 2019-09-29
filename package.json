@@ -38,6 +38,23 @@
 					"description": "You can set the interval at which the extension will poll the Netlify API"
 				}
 			}
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "netlify-explorer",
+					"title": "Netlify Explorer",
+					"icon": "netlify-logo-treeview.svg"
+				}
+			]
+		},
+		"views": {
+			"netlify-explorer": [
+				{
+					"id": "deploys",
+					"name": "Deploys"
+				}
+			]
 		}
 	},
 	"main": "./out/extension.js",
