@@ -24,6 +24,8 @@ netlifyEvents.on('all-deploys', async (ctx) => {
 
   if (!buildStatus) {
     statusBar.text = '$(globe)  No deploy for current branch';
+    statusBar.command = undefined;
+    statusBar.tooltip = `Please create a PR to view deploy preview`;
     statusBar.show();
     return;
   }

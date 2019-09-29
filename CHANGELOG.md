@@ -6,3 +6,8 @@
 * Added Netlify commands to command pallette
   - `View latest deploy`
   - `View production site`
+
+### 0.2.7 | 2019-09-29
+
+* `View latest deploy` now goes to current deploy of your branch
+* If no deploy is available for your current branch it will say `No deploy for current branch`
