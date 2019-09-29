@@ -15,20 +15,24 @@ const date_fns_1 = require("date-fns");
 const netlifyEvents = new EventEmitter();
 exports.netlifyEvents = netlifyEvents;
 const getNetlifyBuildStatus = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
-    const { data: [buildStatus] } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${ctx.siteId}/deploys`, {
+    const { data } = yield axios_1.default.get(`https://api.netlify.com/api/v1/sites/${ctx.siteId}/deploys`, {
         headers: ctx.apiToken ? { 'Authorization': `Bearer ${ctx.apiToken}` } : {}
     });
-    return buildStatus;
+    return data;
 });
 const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     netlifyEvents.emit('startup');
-    yield getNetlifyBuildStatus(ctx).then((buildStatus) => {
+    yield getNetlifyBuildStatus(ctx).then((buildEvents) => {
+        const [buildStatus] = buildEvents;
         netlifyEvents.emit('*', buildStatus);
+        netlifyEvents.emit('all-deploys', buildEvents);
         netlifyEvents.emit(buildStatus.state, buildStatus);
     });
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
-        const buildStatus = yield getNetlifyBuildStatus(ctx);
+        const buildEvents = yield getNetlifyBuildStatus(ctx);
+        const [buildStatus] = buildEvents;
         netlifyEvents.emit('*', buildStatus);
+        netlifyEvents.emit('all-deploys', buildEvents);
         if (buildStatus.state === 'ready') {
             const deployTime = buildStatus.published_at ? date_fns_1.differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
             if (deployTime < 20) {

@@ -11,25 +11,30 @@ interface Context {
 const netlifyEvents = new EventEmitter();
 
 const getNetlifyBuildStatus = async (ctx: Context) => {
-  const { data: [buildStatus] } = await axios.get(`https://api.netlify.com/api/v1/sites/${ctx.siteId}/deploys`, {
+  const { data } = await axios.get(`https://api.netlify.com/api/v1/sites/${ctx.siteId}/deploys`, {
     headers: ctx.apiToken ? { 'Authorization': `Bearer ${ctx.apiToken}` } : {}
   });
 
-  return buildStatus;
+  return data;
 };
 
 const start = async (ctx: Context) => {
   netlifyEvents.emit('startup');
 
-  await getNetlifyBuildStatus(ctx).then((buildStatus) => {
+  await getNetlifyBuildStatus(ctx).then((buildEvents) => {
+    const [buildStatus] = buildEvents;
+
     netlifyEvents.emit('*', buildStatus);
+    netlifyEvents.emit('all-deploys', buildEvents);
     netlifyEvents.emit(buildStatus.state, buildStatus);
   });
 
   setInterval(async () => {
-    const buildStatus = await getNetlifyBuildStatus(ctx);
+    const buildEvents = await getNetlifyBuildStatus(ctx);
+    const [buildStatus] = buildEvents;
 
     netlifyEvents.emit('*', buildStatus);
+    netlifyEvents.emit('all-deploys', buildEvents);
 
     if (buildStatus.state === 'ready') {
       const deployTime = buildStatus.published_at ? differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
