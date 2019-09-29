@@ -21,10 +21,15 @@ const getNetlifyBuildStatus = async (ctx: Context) => {
 const start = async (ctx: Context) => {
   netlifyEvents.emit('startup');
 
-  await getNetlifyBuildStatus(ctx).then((buildStatus) => netlifyEvents.emit(buildStatus.state, buildStatus));
+  await getNetlifyBuildStatus(ctx).then((buildStatus) => {
+    netlifyEvents.emit('*', buildStatus);
+    netlifyEvents.emit(buildStatus.state, buildStatus);
+  });
 
   setInterval(async () => {
     const buildStatus = await getNetlifyBuildStatus(ctx);
+
+    netlifyEvents.emit('*', buildStatus);
 
     if (buildStatus.state === 'ready') {
       const deployTime = buildStatus.published_at ? differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;

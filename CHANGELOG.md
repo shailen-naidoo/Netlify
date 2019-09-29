@@ -1,9 +1,8 @@
-# Change Log
+# ChangeLog
 
-All notable changes to the "netlify" extension will be documented in this file.
+### 0.2.5 | 2019-09-29
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+* Added `View latest deploy` button to statusbar for quick access to recent deploys
+* Added Netlify commands to command pallette
+  - `View latest deploy`
+  - `View production site`

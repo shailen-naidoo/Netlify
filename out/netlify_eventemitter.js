@@ -22,9 +22,13 @@ const getNetlifyBuildStatus = (ctx) => __awaiter(void 0, void 0, void 0, functio
 });
 const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     netlifyEvents.emit('startup');
-    yield getNetlifyBuildStatus(ctx).then((buildStatus) => netlifyEvents.emit(buildStatus.state, buildStatus));
+    yield getNetlifyBuildStatus(ctx).then((buildStatus) => {
+        netlifyEvents.emit('*', buildStatus);
+        netlifyEvents.emit(buildStatus.state, buildStatus);
+    });
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
         const buildStatus = yield getNetlifyBuildStatus(ctx);
+        netlifyEvents.emit('*', buildStatus);
         if (buildStatus.state === 'ready') {
             const deployTime = buildStatus.published_at ? date_fns_1.differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
             if (deployTime < 20) {
