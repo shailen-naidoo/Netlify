@@ -1,6 +1,6 @@
 # ChangeLog
 
-### 0.2.5 | 2019-09-29
+### 0.2.6 | 2019-09-29
 
 * Added `View latest deploy` button to statusbar for quick access to recent deploys
 * Added Netlify commands to command pallette
