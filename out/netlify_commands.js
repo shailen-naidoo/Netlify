@@ -33,7 +33,7 @@ netlify_eventemitter_1.netlifyEvents.on('all-deploys', (ctx) => __awaiter(void 0
         return;
     }
     deployUrl = buildStatus.deploy_ssl_url;
-    statusBar.text = '$(globe)  View latest deploy';
+    statusBar.text = '$(globe)  View latest Netlify deploy';
     statusBar.command = 'netlify.viewLatestDeploy';
     statusBar.tooltip = `View the latest deploy for ${branch}`;
     statusBar.show();
