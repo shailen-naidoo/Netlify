@@ -2,7 +2,7 @@
 	"name": "netlify",
 	"displayName": "Netlify",
 	"description": "View your Netlify deploy statuses right from VS Code",
-	"version": "0.5.2",
+	"version": "0.6.0",
 	"publisher": "shailen",
 	"repository": {
 		"type": "git",
@@ -29,7 +29,6 @@
 				"netlify.api_token": {
 					"type": "string",
 					"default": null,
-					"scope": "application",
 					"description": "This is your personal access token, this will allow the extension to get access to private site info"
 				},
 				"netlify.set_interval": {
