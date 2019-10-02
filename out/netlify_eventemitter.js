@@ -21,13 +21,21 @@ const getNetlifyBuildStatus = (ctx) => __awaiter(void 0, void 0, void 0, functio
     return data;
 });
 const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    let interval;
     netlifyEvents.emit('startup');
-    yield getNetlifyBuildStatus(ctx).then((buildEvents) => {
+    const [, err] = yield getNetlifyBuildStatus(ctx).then((buildEvents) => {
         const [buildStatus] = buildEvents;
         netlifyEvents.emit('*', buildStatus);
         netlifyEvents.emit('all-deploys', buildEvents);
         netlifyEvents.emit(buildStatus.state, buildStatus);
+        return [buildStatus, undefined];
+    }).catch(err => {
+        return [undefined, err];
     });
+    if (err) {
+        netlifyEvents.emit('fetching-deploy-error', err);
+        return 0;
+    }
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
         const buildEvents = yield getNetlifyBuildStatus(ctx);
         const [buildStatus] = buildEvents;

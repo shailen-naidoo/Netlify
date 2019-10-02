@@ -64,3 +64,11 @@ netlifyEvents.on('error', ({ branch, context }) => {
   buildStatus.color = 'red';
   buildStatus.show();
 });
+
+netlifyEvents.on('fetching-deploy-error', () => {
+  logOutputMessage(`Failed to fetch deploy status. Stopping polling on Netlify Deploys API.`);
+
+  buildStatus.text = `$(issue-opened)  Netlify Build Status: Failed to fetch deploy status`;
+  buildStatus.color = 'red';
+  buildStatus.show();
+});
