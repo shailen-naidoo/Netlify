@@ -29,7 +29,6 @@
 				"netlify.api_token": {
 					"type": "string",
 					"default": null,
-					"scope": "application",
 					"description": "This is your personal access token, this will allow the extension to get access to private site info"
 				},
 				"netlify.set_interval": {
