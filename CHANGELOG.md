@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 0.6.1 | 2019-10-02
+
+* You can now add an API Token for Workspace settings
+
 ### 0.6.0 | 2019-10-02
 
 * If `Fetching deploy status` fails, you will now get a status bar message
