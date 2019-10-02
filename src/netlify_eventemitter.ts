@@ -19,15 +19,26 @@ const getNetlifyBuildStatus = async (ctx: Context) => {
 };
 
 const start = async (ctx: Context) => {
+  let interval: NodeJS.Timeout;
+
   netlifyEvents.emit('startup');
 
-  await getNetlifyBuildStatus(ctx).then((buildEvents) => {
+  const [, err] = await getNetlifyBuildStatus(ctx).then((buildEvents) => {
     const [buildStatus] = buildEvents;
 
     netlifyEvents.emit('*', buildStatus);
     netlifyEvents.emit('all-deploys', buildEvents);
     netlifyEvents.emit(buildStatus.state, buildStatus);
+
+    return [buildStatus, undefined];
+  }).catch(err => {
+    return [undefined, err];
   });
+
+  if (err) {
+    netlifyEvents.emit('fetching-deploy-error', err);
+    return 0;
+  }
 
   setInterval(async () => {
     const buildEvents = await getNetlifyBuildStatus(ctx);
