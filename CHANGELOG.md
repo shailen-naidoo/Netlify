@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 0.6.2 | 2019-11-13
+
+* Removed `vscode.themeColor` as default color
+
 ### 0.6.1 | 2019-10-02
 
 * You can now add an API Token for Workspace settings
