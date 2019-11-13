@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 0.6.3 | 2019-11-13
+
+* Using new `vscode.ThemeColor` API
+
 ### 0.6.2 | 2019-11-13
 
 * Removed `vscode.themeColor` as default color

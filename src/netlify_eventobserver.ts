@@ -21,6 +21,7 @@ netlifyEvents.on('startup', () => {
   logOutputMessage('Fetching deploy status...');
 
   buildStatus.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
+  buildStatus.color = new vscode.ThemeColor('statusBar.foreground');
   buildStatus.show();
 });
 
@@ -28,6 +29,7 @@ netlifyEvents.on('ready', () => {
   logOutputMessage('Listening for build...');
 
   buildStatus.text = '$(repo-sync)  Netlify Build Status: Listening for build...';
+  buildStatus.color = new vscode.ThemeColor('statusBar.foreground');
   buildStatus.show();
 });
 

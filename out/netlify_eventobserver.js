@@ -17,11 +17,13 @@ const logOutputMessage = (message) => output.appendLine(`${config_1.siteId} [${d
 netlify_eventemitter_1.netlifyEvents.on('startup', () => {
     logOutputMessage('Fetching deploy status...');
     buildStatus.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
+    buildStatus.color = new vscode.ThemeColor('statusBar.foreground');
     buildStatus.show();
 });
 netlify_eventemitter_1.netlifyEvents.on('ready', () => {
     logOutputMessage('Listening for build...');
     buildStatus.text = '$(repo-sync)  Netlify Build Status: Listening for build...';
+    buildStatus.color = new vscode.ThemeColor('statusBar.foreground');
     buildStatus.show();
 });
 netlify_eventemitter_1.netlifyEvents.on('deploy-successful', ({ context }) => {
