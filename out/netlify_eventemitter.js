@@ -21,7 +21,6 @@ const getNetlifyBuildStatus = (ctx) => __awaiter(void 0, void 0, void 0, functio
     return data;
 });
 const start = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
-    let interval;
     netlifyEvents.emit('startup');
     const [, err] = yield getNetlifyBuildStatus(ctx).then((buildEvents) => {
         const [buildStatus] = buildEvents;

@@ -19,8 +19,6 @@ const getNetlifyBuildStatus = async (ctx: Context) => {
 };
 
 const start = async (ctx: Context) => {
-  let interval: NodeJS.Timeout;
-
   netlifyEvents.emit('startup');
 
   const [, err] = await getNetlifyBuildStatus(ctx).then((buildEvents) => {

@@ -21,7 +21,6 @@ netlifyEvents.on('startup', () => {
   logOutputMessage('Fetching deploy status...');
 
   buildStatus.text = '$(repo-sync~spin)  Netlify Build Status: Fetching deploy status...';
-  buildStatus.color = vscode.ThemeColor;
   buildStatus.show();
 });
 
@@ -29,7 +28,6 @@ netlifyEvents.on('ready', () => {
   logOutputMessage('Listening for build...');
 
   buildStatus.text = '$(repo-sync)  Netlify Build Status: Listening for build...';
-  buildStatus.color = vscode.ThemeColor;
   buildStatus.show();
 });
 
@@ -58,7 +56,7 @@ netlifyEvents.on('enqueued', ({ branch, context }) => {
 });
 
 netlifyEvents.on('error', ({ branch, context }) => {
-  logOutputMessage(`Failed to deploy ${branch} to ${context}`);
+  logOutputMessage(`Failed to deploy vscode.ThemeColor${branch} to ${context}`);
 
   buildStatus.text = `$(issue-opened)  Netlify Build Status: ${branch} failed to deploy to ${context}!`;
   buildStatus.color = 'red';
