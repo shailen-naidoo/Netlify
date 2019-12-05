@@ -64,3 +64,9 @@ The `api_token` is your *Personal Access Token* which can be found in *User Sett
 #### *netlify.set_interval*
 
 The default is 10000ms but you can set whatever polling interval you would like.
+
+### Feedback
+
+If you love using this VS Code extension, please leave some feedback or rate it on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=shailen.netlify) it would be greatly appreciated. 
+
+If you have any ideas on how we can improve this project or maybe you found a bug, please let us know via a Github Issue
