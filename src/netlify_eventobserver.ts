@@ -60,7 +60,7 @@ netlifyEvents.on('enqueued', ({ branch, context }) => {
 });
 
 netlifyEvents.on('error', ({ branch, context }) => {
-  logOutputMessage(`Failed to deploy vscode.ThemeColor${branch} to ${context}`);
+  logOutputMessage(`Failed to deploy ${branch} to ${context}`);
 
   buildStatus.text = `$(issue-opened)  Netlify Build Status: ${branch} failed to deploy to ${context}!`;
   buildStatus.color = errorTextColor;
