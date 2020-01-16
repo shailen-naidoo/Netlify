@@ -3,6 +3,8 @@ import { format } from 'date-fns';
 import { siteId, apiToken, setInterval } from './config';
 import { netlifyEvents } from './netlify_eventemitter';
 
+const errorTextColor = '#ffbc00';
+
 const buildStatus = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -200);
 const output = vscode.window.createOutputChannel('Netlify');
 
@@ -58,10 +60,10 @@ netlifyEvents.on('enqueued', ({ branch, context }) => {
 });
 
 netlifyEvents.on('error', ({ branch, context }) => {
-  logOutputMessage(`Failed to deploy vscode.ThemeColor${branch} to ${context}`);
+  logOutputMessage(`Failed to deploy ${branch} to ${context}`);
 
   buildStatus.text = `$(issue-opened)  Netlify Build Status: ${branch} failed to deploy to ${context}!`;
-  buildStatus.color = 'red';
+  buildStatus.color = errorTextColor;
   buildStatus.show();
 });
 
@@ -69,6 +71,6 @@ netlifyEvents.on('fetching-deploy-error', () => {
   logOutputMessage(`Failed to fetch deploy status. Stopping polling on Netlify Deploys API.`);
 
   buildStatus.text = `$(issue-opened)  Netlify Build Status: Failed to fetch deploy status`;
-  buildStatus.color = 'red';
+  buildStatus.color = errorTextColor;
   buildStatus.show();
 });
