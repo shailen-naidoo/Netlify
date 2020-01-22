@@ -1,5 +1,13 @@
 # ChangeLog
 
+### 0.6.4 | 2020-01-22
+
+* Adjusts tp some of the colors used for better contrasting
+
+#### Contributions 🎉
+
+* [Martin Wheeler](https://github.com/martinwheeler)
+
 ### 0.6.3 | 2019-11-13
 
 * Using new `vscode.ThemeColor` API
