@@ -12,10 +12,18 @@
 * ⚡️ VS Code command palette integration.
 
 ## Documentation
-- [Video Overview](#video-overview)
-- [Status bar](#status-bar)
-- [Command palette](#command-palette)
-- [Settings](#settings)
+
+- [Netlify for VS Code](#netlify-for-vs-code)
+  - [Features](#features)
+  - [Documentation](#documentation)
+    - [Video Overview](#video-overview)
+    - [Status bar](#status-bar)
+    - [Command palette](#command-palette)
+    - [Settings](#settings)
+      - [*netlify.site_id*](#netlifysiteid)
+      - [*netlify.api_token*](#netlifyapitoken)
+      - [*netlify.set_interval*](#netlifysetinterval)
+    - [Feedback](#feedback)
 
 ### Video Overview
 
@@ -70,3 +78,7 @@ The default is 10000ms but you can set whatever polling interval you would like.
 If you love using this VS Code extension, please leave some feedback or rate it on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=shailen.netlify) it would be greatly appreciated. 
 
 If you have any ideas on how we can improve this project or maybe you found a bug, please let us know via a Github Issue
+
+If you really, really love the project maybe consider sponsoring it 
+
+[![Become a Patron](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/shailennaidoo)
