@@ -1,6 +1,6 @@
 # ChangeLog
 
-### 0.6.5 | 2020-01-9
+### 0.6.5 | 2020-01-29
 
 * Added a link to Patreon for those who would like to support the project 
 
