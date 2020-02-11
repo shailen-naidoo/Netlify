@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
 import * as child from 'child_process';
+import axios from 'axios';
 import { promisify } from 'util';
 import { netlifyEvents } from './netlify_eventemitter';
+import { buildHook } from './config';
 
 const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100);
 
@@ -45,5 +47,11 @@ netlifyEvents.once('*', () => {
   
   vscode.commands.registerCommand('netlify.viewProductionSite', () => {
     vscode.env.openExternal(vscode.Uri.parse(productionSiteUrl));
+  });
+
+  vscode.commands.registerCommand('netlify.triggerBuild', () => {
+    return axios.post(buildHook, {})
+      .then(() => vscode.window.showInformationMessage('Successfully triggered build!'))
+      .catch(() => vscode.window.showInformationMessage('Failed to trigger build'));
   });
 });

@@ -4,6 +4,8 @@
 
 ![](docs/assets/logo-netlify.png) ![](docs/assets/logo-vs-code.png)
 
+> **New feature** 🎉:  You can now trigger a Netlify build process via the command pallette (refer to [settings](#settings))
+
 ## Features
 
 * ✅ Deploy status and errors inside VS Code.
@@ -23,6 +25,7 @@
       - [*netlify.site_id*](#netlifysiteid)
       - [*netlify.api_token*](#netlifyapitoken)
       - [*netlify.set_interval*](#netlifysetinterval)
+      - [*netlify.build_hook*](#netlifybuildhook)
     - [Feedback](#feedback)
 
 ### Video Overview
@@ -72,6 +75,12 @@ The `api_token` is your *Personal Access Token* which can be found in *User Sett
 #### *netlify.set_interval*
 
 The default is 10000ms but you can set whatever polling interval you would like.
+
+#### *netlify.build_hook*
+
+This is your build hook endpoint for triggering a build process, you can create one via *Build & deploy* which can be found in a project's *Settings*
+
+You can trigger the build hook straight from VS Code via the command pallette `Netlify: Trigger build`
 
 ### Feedback
 

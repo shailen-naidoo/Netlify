@@ -1,5 +1,11 @@
 # ChangeLog
 
+### 0.7.0 | 2019-02-11
+
+#### New features 🎉
+
+* Added the ability to trigger a Netlify build proccess calling the provided build hook
+
 ### 0.6.5 | 2020-01-29
 
 * Added a link to Patreon for those who would like to support the project 

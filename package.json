@@ -35,6 +35,11 @@
 					"type": "integer",
 					"default": 10000,
 					"description": "You can set the interval at which the extension will poll the Netlify API"
+				},
+				"netlify.build_hook": {
+					"type": "string",
+					"default": null,
+					"description": "This is your build hook endpoint provided by Netlify"
 				}
 			}
 		},
@@ -47,6 +52,11 @@
 			{
 				"command": "netlify.viewProductionSite",
 				"title": "View production site",
+				"category": "Netlify"
+			},
+			{
+				"command": "netlify.triggerBuild",
+				"title": "Trigger Netlify build",
 				"category": "Netlify"
 			}
 		]
