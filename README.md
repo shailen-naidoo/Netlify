@@ -48,6 +48,7 @@ You can run the following commands from the VS Code command palette:
 
 * `Netlify: View latest deploy`
 * `Netlify: View production site`
+* `Netlify: Trigger Netlify build`
 
 ### Settings
 
