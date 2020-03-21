@@ -48,7 +48,7 @@ const start = async (ctx: Context) => {
     if (buildStatus.state === 'ready') {
       const deployTime = buildStatus.published_at ? differenceInSeconds(new Date(), new Date(buildStatus.published_at)) : 100;
 
-      if (deployTime < 20) {
+      if (deployTime < 30) {
         netlifyEvents.emit('deploy-successful', buildStatus);
         return;
       }

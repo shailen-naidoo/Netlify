@@ -4,7 +4,7 @@
 
 ![](docs/assets/logo-netlify.png) ![](docs/assets/logo-vs-code.png)
 
-> **New feature** 🎉:  You can now trigger a Netlify build process via the command pallette (refer to [settings](#settings))
+> **New feature** 🎉: There is now a Netlify sidebar where you can see an overview of your deploy summary. More to come :)
 
 ## Features
 
@@ -12,6 +12,7 @@
 * 🌍 View latest production build with single click.
 * 👀 Deploy preview straight from branch in VS Code.
 * ⚡️ VS Code command palette integration.
+* 👓 Netlify sidebar for in-depth deploy information
 
 ## Documentation
 
