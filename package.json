@@ -59,7 +59,24 @@
 				"title": "Trigger Netlify build",
 				"category": "Netlify"
 			}
-		]
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "netlify-explorer",
+					"title": "Netlify Explorer",
+					"icon": "/resources/netlify.svg"
+				}
+			]
+		},
+		"views": {
+			"netlify-explorer": [
+				{
+					"id": "deploy-summary",
+					"name": "Deploy Summary"
+				}
+			]
+		}
 	},
 	"main": "./out/extension.js",
 	"scripts": {
