@@ -58,6 +58,11 @@
 				"command": "netlify.triggerBuild",
 				"title": "Trigger Netlify build",
 				"category": "Netlify"
+			},
+			{
+				"command": "netlify.viewDeployLog",
+				"title": "View deploy log",
+				"category": "Netlify"
 			}
 		],
 		"viewsContainers": {

@@ -15,6 +15,8 @@ const getWorkspaceRootPath = () => vscode.workspace.workspaceFolders[0].uri.fsPa
 
 const exec = promisify(child.exec);
 
+let deployLogURL = '';
+
 netlifyEvents.on('*', (ctx) => {
   productionSiteUrl = ctx.url;
 });
@@ -38,6 +40,8 @@ netlifyEvents.on('all-deploys', async (ctx) => {
   statusBar.command = 'netlify.viewLatestDeploy';
   statusBar.tooltip = `View the latest deploy for ${branch}`;
   statusBar.show();
+
+  deployLogURL = `https://app.netlify.com/sites/${buildStatus.name}/deploys/${buildStatus.id}`
 });
 
 netlifyEvents.once('*', () => {
@@ -53,5 +57,9 @@ netlifyEvents.once('*', () => {
     return axios.post(buildHook, {})
       .then(() => vscode.window.showInformationMessage('Successfully triggered build!'))
       .catch(() => vscode.window.showInformationMessage('Failed to trigger build'));
+  });
+
+  vscode.commands.registerCommand('netlify.viewDeployLog', () => {
+    vscode.env.openExternal(vscode.Uri.parse(deployLogURL));
   });
 });
