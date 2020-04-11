@@ -1,6 +1,18 @@
 # ChangeLog
 
-### 0.7.0 | 2019-02-11
+### 0.9.0 | 2020-04-11
+
+#### New features 🎉
+
+* Added a command `View deploy log` to view the current branches deploy log (build process) on Netlify
+
+### 0.8.0 | 2020-03-21
+
+#### New features 🎉
+
+* Added a Netlify Explorer to the Sidebar where you can view you build summary for now
+
+### 0.7.0 | 2020-02-11
 
 #### New features 🎉
 
