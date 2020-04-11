@@ -2,14 +2,14 @@
 	"name": "netlify",
 	"displayName": "Netlify",
 	"description": "View your Netlify deploy statuses right from VS Code",
-	"version": "0.9.0",
+	"version": "0.8.0",
 	"publisher": "shailen",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ShailenNaidoo/Netlify.git"
 	},
 	"engines": {
-		"vscode": "^1.38.0"
+		"vscode": "^1.44.0"
 	},
 	"categories": [
 		"Other"
