@@ -4,7 +4,7 @@
 
 ![](docs/assets/logo-netlify.png) ![](docs/assets/logo-vs-code.png)
 
-> **New feature** 🎉: There is now a Netlify sidebar where you can see an overview of your deploy summary. More to come :)
+> **New feature** 🎉: Added a command `Netlify: View deploy log` to view the current branches' deploy log (build process) on Netlify
 
 ## Features
 
@@ -50,6 +50,7 @@ You can run the following commands from the VS Code command palette:
 * `Netlify: View latest deploy`
 * `Netlify: View production site`
 * `Netlify: Trigger Netlify build`
+* `Netlify: View deploy log`
 
 ### Settings
 
