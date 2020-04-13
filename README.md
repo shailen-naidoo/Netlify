@@ -27,6 +27,7 @@
       - [*netlify.api_token*](#netlifyapitoken)
       - [*netlify.set_interval*](#netlifysetinterval)
       - [*netlify.build_hook*](#netlifybuildhook)
+      - [*netlify.build_status_colors*](#netlifybuildstatuscolors)
     - [Feedback](#feedback)
 
 ### Video Overview
@@ -61,7 +62,13 @@ You can configure the extension straight from VS Code settings, by simply search
 {
   "netlify.site_id": "<site_name|api_id>",
   "netlify.api_token": "<personal_access_token>",
-  "netlify.set_interval": "<number>"
+  "netlify.set_interval": "<number>",
+  "netlify.build_status_colors": {
+    "building": "<hex|name>",
+    "enqueued": "<hex|name>",
+    "deploy-successful": "<hex|name>",
+    "error": "<hex|name>"
+  }
 }
 ```
 
@@ -84,6 +91,21 @@ The default is 10000ms but you can set whatever polling interval you would like.
 This is your build hook endpoint for triggering a build process, you can create one via *Build & deploy* which can be found in a project's *Settings*
 
 You can trigger the build hook straight from VS Code via the command pallette `Netlify: Trigger build`
+
+#### *netlify.build_status_colors*
+
+You can set the colors of the Netlify build status, makes it a bit easier is if the default colors do not play nicely with your theme. Here is the config for it via the `settings.json`
+
+```json
+"netlify.build_status_colors": {
+  "building": "<hex|name>",
+  "enqueued": "<hex|name>",
+  "deploy-successful": "<hex|name>",
+  "error": "<hex|name>"
+}
+```
+
+If you don't set a property with a color then it will just default to the internal color for that property
 
 ### Feedback
 

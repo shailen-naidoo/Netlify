@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 1.0.0 | 2020-04-13
+
+* You can now set the colors of the Netlify build status via the `settings.json` file, makes it a bit easier for users that have different themes
+
 ### 0.9.0 | 2020-04-11
 
 #### New features 🎉
