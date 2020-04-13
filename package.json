@@ -40,6 +40,11 @@
 					"type": "string",
 					"default": null,
 					"description": "This is your build hook endpoint provided by Netlify"
+				},
+				"netlify.build_status_colors": {
+					"type": "object",
+					"default": {},
+					"description": "You can set the values of the build status colors to fit whatever theme you are using"
 				}
 			}
 		},
