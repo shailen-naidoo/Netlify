@@ -40,10 +40,14 @@ export class DataProvider implements vscode.TreeDataProvider<DeploySummaryItem> 
 
 const deploysDataProvider = new DataProvider();
 
-netlifyEvents.on('ready', ({ summary: { messages }}) => {
-  deploysDataProvider.getChildren = () => messages.map(
-    ({ title }: { title: string }) => new DeploySummaryItem(title)
-  );
+vscode.window.registerTreeDataProvider('deploy-summary', deploysDataProvider);
+
+netlifyEvents.on('ready', ({ summary: { messages = [] }}) => {
+  if (messages.length) {
+    deploysDataProvider.getChildren = () => messages.map(
+      ({ title }: { title: string }) => new DeploySummaryItem(title)
+    );
+  }
 
   vscode.window.registerTreeDataProvider('deploy-summary', deploysDataProvider);
 });
