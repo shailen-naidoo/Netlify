@@ -12,6 +12,7 @@ const netlifyEvents = new EventEmitter();
 
 const getNetlifyBuildStatus = async (ctx: Context) => {
   const { data } = await axios.get(`https://api.netlify.com/api/v1/sites/${ctx.siteId}/deploys`, {
+    params: { per_page: 1 },
     headers: ctx.apiToken ? { 'Authorization': `Bearer ${ctx.apiToken}` } : {}
   });
 
