@@ -34,7 +34,7 @@ export class DataProvider implements vscode.TreeDataProvider<DeploySummaryItem> 
   }
 
   refresh() {
-    this._onDidChangeTreeData.fire();
+    this._onDidChangeTreeData.fire(true);
   }
 }
 
@@ -62,5 +62,5 @@ netlifyEvents.on('deploy-successful', ({ summary: { messages }}) => {
     }, 2000);
   });
 
-  deploysDataProvider._onDidChangeTreeData.fire();
+  deploysDataProvider._onDidChangeTreeData.fire(true);
 });
