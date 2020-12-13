@@ -1,5 +1,13 @@
 # ChangeLog
 
+### 1.1.0 | 2020-12-13
+
+* Deploys API is now paginated so the extension is not as data heavy
+
+#### Contributions 🎉
+
+* [Esteban Pastorino](https://github.com/kitop)
+
 ### 1.0.0 | 2020-04-13
 
 * You can now set the colors of the Netlify build status via the `settings.json` file, makes it a bit easier for users that have different themes
