@@ -42,25 +42,25 @@ const deploysDataProvider = new DataProvider();
 
 vscode.window.registerTreeDataProvider('deploy-summary', deploysDataProvider);
 
-netlifyEvents.on('ready', ({ summary: { messages = [] }}) => {
-  if (messages.length) {
-    deploysDataProvider.getChildren = () => messages.map(
-      ({ title }: { title: string }) => new DeploySummaryItem(title)
-    );
-  }
+// netlifyEvents.on('ready', ({ summary: { messages = [] }}) => {
+//   if (messages.length) {
+//     deploysDataProvider.getChildren = () => messages.map(
+//       ({ title }: { title: string }) => new DeploySummaryItem(title)
+//     );
+//   }
 
-  vscode.window.registerTreeDataProvider('deploy-summary', deploysDataProvider);
-});
+//   vscode.window.registerTreeDataProvider('deploy-summary', deploysDataProvider);
+// });
 
-netlifyEvents.on('deploy-successful', ({ summary: { messages }}) => {
-  // @ts-ignore
-  deploysDataProvider.getChildren = () => new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(messages.map(
-        ({ title }: { title: string }) => new DeploySummaryItem(title)
-      ));
-    }, 2000);
-  });
+// netlifyEvents.on('deploy-successful', ({ summary: { messages }}) => {
+//   // @ts-ignore
+//   deploysDataProvider.getChildren = () => new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(messages.map(
+//         ({ title }: { title: string }) => new DeploySummaryItem(title)
+//       ));
+//     }, 2000);
+//   });
 
-  deploysDataProvider._onDidChangeTreeData.fire(true);
-});
+//   deploysDataProvider._onDidChangeTreeData.fire(true);
+// });
