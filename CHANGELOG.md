@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 1.5.0 | 2020-12-31
+
+* Turning off Netlify sidebar functionality for now due to Netlify removing deploy summary information from the API
+
 ### 1.1.0 | 2020-12-13
 
 * Deploys API is now paginated so the extension is not as data heavy
