@@ -7,9 +7,7 @@ interface BuildStatusColors {
   error: string;
 }
 
-function substituteEnvVariables(input: string): string {
-  let configString = JSON.stringify(input);
-
+function substituteEnvVariables(configString: string): string {
   if (configString && /\${env:[^}]+}/.test(configString)) {
     const { groups } = configString.match(/\${env:(?<name>[^}]+)\}/) as RegExpMatchArray;
 
