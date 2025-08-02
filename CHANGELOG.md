@@ -1,5 +1,10 @@
 # ChangeLog
 
+### 1.6.0 | 2025-08-02
+
+* Migrated Netlify API Token storage to SecretStorage API
+* Updated the logo to the current Netlify logo
+
 ### 1.5.0 | 2020-12-31
 
 * Turning off Netlify sidebar functionality for now due to Netlify removing deploy summary information from the API
