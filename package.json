@@ -9,7 +9,7 @@
 		"url": "https://github.com/ShailenNaidoo/Netlify.git"
 	},
 	"engines": {
-		"vscode": "^1.44.0"
+		"vscode": "^1.53.0"
 	},
 	"categories": [
 		"Other"
@@ -25,11 +25,6 @@
 					"type": "string",
 					"default": null,
 					"description": "This is your site id that will allow the extension to sync with your sites deploys"
-				},
-				"netlify.api_token": {
-					"type": "string",
-					"default": null,
-					"description": "This is your personal access token, this will allow the extension to get access to private site info"
 				},
 				"netlify.set_interval": {
 					"type": "integer",
@@ -51,42 +46,30 @@
 		"commands": [
 			{
 				"command": "netlify.viewLatestDeploy",
-				"title": "View latest deploy",
+				"title": "View Latest Deploy",
 				"category": "Netlify"
 			},
 			{
 				"command": "netlify.viewProductionSite",
-				"title": "View production site",
+				"title": "View Production Site",
 				"category": "Netlify"
 			},
 			{
 				"command": "netlify.triggerBuild",
-				"title": "Trigger Netlify build",
+				"title": "Trigger Netlify Build",
 				"category": "Netlify"
 			},
 			{
 				"command": "netlify.viewDeployLog",
-				"title": "View deploy log",
+				"title": "View Deploy Log",
+				"category": "Netlify"
+			},
+			{
+				"command": "netlify.setApiToken",
+				"title": "Set Netlify API Token",
 				"category": "Netlify"
 			}
-		],
-		"viewsContainers": {
-			"activitybar": [
-				{
-					"id": "netlify-explorer",
-					"title": "Netlify Explorer",
-					"icon": "/resources/netlify.svg"
-				}
-			]
-		},
-		"views": {
-			"netlify-explorer": [
-				{
-					"id": "deploy-summary",
-					"name": "Deploy Summary"
-				}
-			]
-		}
+		]
 	},
 	"main": "./out/extension.js",
 	"scripts": {
@@ -100,7 +83,7 @@
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.7",
 		"@types/node": "^10.17.19",
-		"@types/vscode": "^1.44.0",
+		"@types/vscode": "^1.53.0",
 		"glob": "^7.1.6",
 		"mocha": "^6.2.3",
 		"tslint": "^5.20.1",
