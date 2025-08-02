@@ -4,7 +4,7 @@
 
 ![](docs/assets/logo-netlify.png) ![](docs/assets/logo-vs-code.png)
 
-> **New feature** 🎉: Added a command `Netlify: View deploy log` to view the current branches' deploy log (build process) on Netlify
+> **Update** 🎉: Using SecretStorage API to store the Netlify API Token for security purposes.
 
 ## Features
 
@@ -24,7 +24,6 @@
     - [Command palette](#command-palette)
     - [Settings](#settings)
       - [*netlify.site_id*](#netlifysiteid)
-      - [*netlify.api_token*](#netlifyapitoken)
       - [*netlify.set_interval*](#netlifysetinterval)
       - [*netlify.build_hook*](#netlifybuildhook)
       - [*netlify.build_status_colors*](#netlifybuildstatuscolors)
@@ -48,10 +47,10 @@ The deployment monitor in the VS Code status bar should show one of the followin
 
 You can run the following commands from the VS Code command palette:
 
-* `Netlify: View latest deploy`
-* `Netlify: View production site`
-* `Netlify: Trigger Netlify build`
-* `Netlify: View deploy log`
+* `Netlify: View Latest Deploy`
+* `Netlify: View Production Site`
+* `Netlify: Trigger Netlify Build`
+* `Netlify: View Deploy Log`
 
 ### Settings
 
@@ -61,7 +60,6 @@ You can configure the extension straight from VS Code settings, by simply search
 ```json
 {
   "netlify.site_id": "<site_name|api_id>",
-  "netlify.api_token": "<personal_access_token>",
   "netlify.set_interval": "<number>",
   "netlify.build_status_colors": {
     "building": "<hex|name>",
@@ -78,10 +76,6 @@ These values are as follows:
 
 The name of your site or api id can be used, you can find these details under **Site detail**. If you site name is `my-site` then you need to append `.netlify.com` so it will be `my-site.netlify.com`
 
-#### *netlify.api_token*
-
-The `api_token` is your *Personal Access Token* which can be found in *User Settings*, this will be used to authenticate private Netlify projects
-
 #### *netlify.set_interval*
 
 The default is 10000ms but you can set whatever polling interval you would like.
@@ -90,7 +84,7 @@ The default is 10000ms but you can set whatever polling interval you would like.
 
 This is your build hook endpoint for triggering a build process, you can create one via *Build & deploy* which can be found in a project's *Settings*
 
-You can trigger the build hook straight from VS Code via the command pallette `Netlify: Trigger build`
+You can trigger the build hook straight from VS Code via the command palette `Netlify: Trigger Build`
 
 #### *netlify.build_status_colors*
 
@@ -111,8 +105,4 @@ If you don't set a property with a color then it will just default to the intern
 
 If you love using this VS Code extension, please leave some feedback or rate it on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=shailen.netlify) it would be greatly appreciated. 
 
-If you have any ideas on how we can improve this project or maybe you found a bug, please let us know via a Github Issue
-
-If you really, really love the project maybe consider sponsoring it 
-
-[![Become a Patron](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/shailennaidoo)
+If you have any ideas on how we can improve this project or maybe you found a bug, please let us know via a Github Issue.
