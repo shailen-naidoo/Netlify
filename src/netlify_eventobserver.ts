@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import { format } from 'date-fns';
-import { siteId, apiToken, setInterval, buildStatusColors } from './config';
+import { siteId, setInterval, buildStatusColors } from './config';
 import { netlifyEvents } from './netlify_eventemitter';
 
-const deploySuccessfulTextColour = '#99ff99'; 
+const deploySuccessfulTextColour = '#99ff99';
 const errorTextColor = '#ffbc00';
 const buildingTextColor = 'yellow';
 const enqueuedTextColor = 'orange';
@@ -18,7 +18,6 @@ const output = vscode.window.createOutputChannel('Netlify');
 
 output.appendLine('Getting extension config from VS Code...\n');
 output.appendLine(`Using [site_id]: ${siteId ? `"${siteId}"` : 'undefined'}`);
-output.appendLine(`Using [api_token]: "${apiToken}"`);
 output.appendLine(`Using [set_interval]: ${setInterval}\n`);
 
 if (!siteId) {

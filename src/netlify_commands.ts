@@ -48,7 +48,7 @@ netlifyEvents.once('*', () => {
   vscode.commands.registerCommand('netlify.viewLatestDeploy', () => {
     vscode.env.openExternal(vscode.Uri.parse(deployUrl));
   });
-  
+
   vscode.commands.registerCommand('netlify.viewProductionSite', () => {
     vscode.env.openExternal(vscode.Uri.parse(productionSiteUrl));
   });
