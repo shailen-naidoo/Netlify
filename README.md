@@ -47,10 +47,11 @@ The deployment monitor in the VS Code status bar should show one of the followin
 
 You can run the following commands from the VS Code command palette:
 
-* `Netlify: View Latest Deploy`
-* `Netlify: View Production Site`
-* `Netlify: Trigger Netlify Build`
-* `Netlify: View Deploy Log`
+* `Netlify: View Latest Deploy` - Opens the latest deploy of your branch in the browser
+* `Netlify: View Production Site` - Opens the production site in the browser
+* `Netlify: Trigger Netlify Build` - Triggers a build using the provided Netlify Build Hook
+* `Netlify: View Deploy Log` - Opens the Deploy Log on Netlify for the current branch in the browser
+* `Netlify: Set Netlify API Token` - Uses SecretStorage API 🔐
 
 ### Settings
 

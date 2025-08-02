@@ -1,5 +1,14 @@
 # ChangeLog
 
+### 1.6.2 | 2025-08-02
+
+* Updated the readme to reflect the introduction of the `Netlify: Set Netlify API Token` command.
+* Cleaned up the readme
+
+### 1.6.1 | 2025-08-02
+
+* Updated the logo, made it better
+
 ### 1.6.0 | 2025-08-02
 
 * Migrated Netlify API Token storage to SecretStorage API
