@@ -7,9 +7,10 @@ class DeploySummaryItem extends vscode.TreeItem {
     super(title);
   }
 
+  // @ts-ignore
   iconPath = {
     dark: path.join(__filename, '..', '..', 'resources', 'done.dark.svg'),
-    light: path.join(__filename, '..', '..','resources', 'done.light.svg'),
+    light: path.join(__filename, '..', '..', 'resources', 'done.light.svg'),
   };
 
   contextValue = 'deploy-summary';
@@ -29,6 +30,7 @@ export class DataProvider implements vscode.TreeDataProvider<DeploySummaryItem> 
     ];
   }
 
+  // @ts-ignore
   getTreeItem(element: DeploySummaryItem) {
     return element;
   }
@@ -40,6 +42,7 @@ export class DataProvider implements vscode.TreeDataProvider<DeploySummaryItem> 
 
 const deploysDataProvider = new DataProvider();
 
+// @ts-ignore
 vscode.window.registerTreeDataProvider('deploy-summary', deploysDataProvider);
 
 // netlifyEvents.on('ready', ({ summary: { messages = [] }}) => {
