@@ -11,11 +11,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   const apiToken = await context.secrets.get('netlify_api_token');
 
-  if (!apiToken) {
-    vscode.window.showErrorMessage('Run "Netlify: Set API Token" command to set your Netlify API token.');
-    return;
-  }
-
   vscode.commands.registerCommand('netlify.setApiToken', async () => {
     const token = await vscode.window.showInputBox({
       prompt: 'Enter your Netlify API token',
@@ -34,6 +29,11 @@ export const activate = async (context: vscode.ExtensionContext) => {
       await vscode.window.showInformationMessage('Netlify API token set successfully!');
     }
   });
+
+  if (!apiToken) {
+    vscode.window.showErrorMessage('Run "Netlify: Set API Token" command to set your Netlify API token.');
+    return;
+  }
 
   await Netlify.start({ ...config, apiToken });
 };
