@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 1.6.3 | 2025-08-12
+
+* Fixed an issue pertaining to not being able to set the API token if none was set before.
+
 ### 1.6.2 | 2025-08-02
 
 * Updated the readme to reflect the introduction of the `Netlify: Set Netlify API Token` command.
